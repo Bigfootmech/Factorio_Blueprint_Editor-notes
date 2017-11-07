@@ -41,10 +41,7 @@ Blueprint editing!!!
 -------------------------------------------------------------------
 New Issues: 
 
-[quote]Also most of my blueprints when holding in hand and pressing N instantly error out with "/lib/logic/model/blueprint/Blueprint_Entity.lua:47:fail direction". When running event BPEdit::a-primary-action.
-The direction crash is probably related to any entity haveing a direction at all (e.g. miners, rails, belts) etc as opposed to non-rotatables like accumulators. Yep. Single Assembler with recipe works, with fluid recipe in default rotation works, with fluid recipe in different rotation errors.[/quote]
-Add credit eradicator for bug testing
-fixed?? (waiting on eradicator to confirm)
+factorio verify player gets error message "nothing editing" (done. true.)
 
 -------------------------------------------------------------------
 Tech Debt: 
@@ -100,8 +97,18 @@ Key: Esc?/E (or check for user "closed GUI" event for compatibility):
 Tasks:
 
 
+Find out why error isn't being printed on player?
+Merge current branch to master
+
 -------------------------------------------------------------------
 DONE:
+
+[quote]Also most of my blueprints when holding in hand and pressing N instantly error out with "/lib/logic/model/blueprint/Blueprint_Entity.lua:47:fail direction". When running event BPEdit::a-primary-action.
+The direction crash is probably related to any entity haveing a direction at all (e.g. miners, rails, belts) etc as opposed to non-rotatables like accumulators. Yep. Single Assembler with recipe works, with fluid recipe in default rotation works, with fluid recipe in different rotation errors.[/quote]
+Add credit eradicator for bug testing
+fixed?? (waiting on eradicator to confirm)
+(assuming fixed)
+
 Mods folder hooked up in such a way, that I don't have to deploy every time?
 -delete bpedit and lib, copy everything else
 -make sure bpedit and lib are symlinked correctly (use environment vars to point to dev location?)
@@ -790,3 +797,7 @@ Add "modifying" tile over existing? (seethrough??) / replace existing with colou
 "notes" out of repo, because it's not really version-related (but I still want it online/synced)
 
 try - catch around "clearing" in build - let dev see what happened
+
+Move mod info to src/main/resources, and use that for build?
+
+Build number = input to py script
