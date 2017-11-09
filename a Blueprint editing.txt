@@ -96,8 +96,13 @@ Key: Esc?/E (or check for user "closed GUI" event for compatibility):
 -------------------------------------------------------------------
 Tasks:
 
+Use actual Dal for getting/setting data? (fast, easy, erronious?)
+Create a dal proxy?(long. extra upkeep)
+mock/spy on real dal module? (no, we want E2E to be complete)
 
-Find out why error isn't being printed on player?
+"clear hand" always sets to lua stack "empty"?
+Create convincing "userdata" for testing?
+
 Merge current branch to master
 
 -------------------------------------------------------------------
@@ -151,6 +156,13 @@ Key M:
 
     Diagonal blueprint reflect covered
 
+Find out why error isn't being printed on player?
+not loading "data" 2nd time... weird
+Caching :/
+
+End to End testing - Faketorio. Busted? Cucumber? Luaunit?!?
+    Create one E2E test for each "path"
+
 -------------------------------------------------------------------
 
 DEV_QOL:
@@ -185,6 +197,7 @@ local deploy correctly deletes zip files
 Check stash, and either branch, or discard.
 Fix bugs.
 Increase stability.
+Create more E2E tests
 
 -------------------------------------------------------------------
 -------------------- STAGE 4 - FULL BLUEPRINT ---------------------
@@ -459,8 +472,6 @@ Wrap class. Wrap method. Add "calls" Array, which stores arguments as a table. #
 fix error inconsistently failing to clean target (after manually accessed by windows)
 
 CI with AppVeyor/Travis/CircleCI?
-
-End to End testing - Faketorio. Busted? Cucumber?
 
 -------------------------------------------------------------------
 ----------------------------- DEV QOL -----------------------------
@@ -785,6 +796,17 @@ On editing, calculate blueprint bounding box, and fill tiles with lab tiling?
 Keybinds = Object.extends(Keysequence_Definition_Mapping,"Keybinds")
 "Blueprint string" refers to blueprint in original orientation, with anchor at centre.
 
+On editing, calculate blueprint bounding box, and fill tiles with lab tiling?
+
+Want to give, but don't have money? No problem! Send me an email, or message telling me how much you like my mod. I'll really appreciate it :). Looking for, and reporting bugs is another good way to contribute! (if you have time)
+Don't want to, or don't feel like it? No problem! You're free to be you man :).
+
+
+On import from game - verify array position = element number! (otherwise, new table -> wrap -> correct)
+
+Too many things to manually test. Need automated end-to-end testing :(.
+
+Stop mixing concepts array-table for blueprint entities"Blueprint string" refers to blueprint in original orientation, with anchor at centre.
 
 TestFails = {}
     function TestFails:testFails()
@@ -801,3 +823,12 @@ try - catch around "clearing" in build - let dev see what happened
 Move mod info to src/main/resources, and use that for build?
 
 Build number = input to py script
+
+Reverse order of DAOs retrieval??
+
+break up repos in to 
+-IT
+-bpedit & test
+-lib & test
+-core & test
+-core mocks?? (mock userdata)
