@@ -100,29 +100,6 @@ Create more E2E tests
 Pay tech debt
 
 -------------------------------------------------------------------
---------------------- STAGE X - ORIGIN/QOL ------------------------
--------------------------------------------------------------------
-
-Requirements:
-Entities
-
-Unplaceable entities.
-can we make non-placeable entities (markers), which stay in the BP, but aren't put down in the ghost? (less important)
-If existing invisible, unplaceable object, remove before calculating origin
-
-
-"Visual indicator" of origin? (mini anchor?)
-    - removed before calculating bounding box?
-    - not placeable
-    - no collision
-    
-DEV QOL, and Player QOL
-Editing View nice:
-    Lab tiling unplaceable = "grid" (within "bounding box" of BP)
-    Add "modifying" tile over existing? (seethrough??) / replace existing with coloured = existing tiling + grid
-    Unplaceable "lab tiling" inside blueprints, behind "bounding box" of BP?????? (grid)!!! (along with anchor HIGH QOL improvement!)
-
--------------------------------------------------------------------
 ---------------------- STAGE X - ALIGNMENT ------------------------
 -------------------------------------------------------------------
 
@@ -142,6 +119,10 @@ Collision box -> grid:
     Even side = 0
 
 "origin" of item in middle of first block it's in???
+https://wiki.factorio.com/Types/AABB
+
+game -> entity_prototypes :: custom dictionary string → LuaEntityPrototype [Read-only]
+
 
 https://wiki.factorio.com/Prototype/Entity
 
@@ -161,6 +142,31 @@ Default: calculated by the collision box height rounded up.
 "Copy" = create carbon copy of whole blueprint, as item (ctrl-C, applies to selection - re-insert or whole BP)
 "Rotate"
 "Mirror"
+
+-------------------------------------------------------------------
+-------------------- STAGE ??? - ORIGIN/QOL -----------------------
+-------------------------------------------------------------------
+
+Requirements:
+Entities? Overlay?
+
+try adding as tile?
+
+Unplaceable entities. (impossible?) -- might have to be put off until overlay?
+can we make non-placeable entities (markers), which stay in the BP, but aren't put down in the ghost? (less important)
+If existing invisible, unplaceable object, remove before calculating origin
+
+
+"Visual indicator" of origin? (mini anchor?)
+    - removed before calculating bounding box?
+    - not placeable
+    - no collision
+    
+DEV QOL, and Player QOL
+Editing View nice:
+    Lab tiling unplaceable = "grid" (within "bounding box" of BP)
+    Add "modifying" tile over existing? (seethrough??) / replace existing with coloured = existing tiling + grid
+    Unplaceable "lab tiling" inside blueprints, behind "bounding box" of BP?????? (grid)!!! (along with anchor HIGH QOL improvement!)
 
 -------------------------------------------------------------------
 --------------------------- Player QOL ----------------------------

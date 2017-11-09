@@ -1,0 +1,42 @@
+
+decorative -- deprecated :(
+utility-sprites -- not an entity
+virtual-signal -- not an entity
+font -- crashes game
+tool -- durability
+tree -- entity is not valid for blueprint V_V
+simple-entity -- not valid for blueprint V_V V_V V_V are you shitting me?
+corpse -- not valid for blueprint
+unit-spawner -- animations
+item -- unknown entity name (item is not an entity)
+beam -- width
+--    width = 1,
+--    damage_interval = 1,
+-- can't create beam, target/target_position not specified
+market?? -- entity is not valid for blueprint?!?
+mining-drill -- vector to place result. also probably animation
+rocket-defense -- energy source??
+land-mine -- picture safe
+deconstructible-tile-proxy -- "entity" is not valid for blueprint?
+lab -- energy usage -- animation
+beacon -- energy usage (module spam beacon) -- animation
+container -- collision with picker. Don't wanna picker fight with that
+unit -- run animation
+wall -- single (probably more - linked) -- worse than lamp?
+generator -- fluid_box
+
+smoke -- animation (but high on draw list)
+sticker -- duration_in_ticks? but if set, doesn't register??
+-- target_movement_modifier
+-- can't create sticker, target not specified.
+item-entity -- "stack" required when dumping to lua
+entity-ghost -- "inner name" required when dumping to lua
+tile-ghost -- "inner name" required when dumping to lua
+
+
+particle <- has its own fuckery with pictures -> sheet
+particle-source <- requires particle
+
+lamp -- picture on XD (probably more)
+
+solar-panel -- entity is not valid for blueprint?!?!?!??!??!??
