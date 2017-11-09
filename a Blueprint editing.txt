@@ -57,8 +57,21 @@ Bug:
 Open blueprint for editing - don't make a selection - click lock anchor
 game crashes.
 
+[Player QOL]
+There's a weird ordering in the controls now
+ - Find out why 
+
 [Workflow]
-- "moving selection" text appears when no selection :(
+E kinda closes blueprint even if I push to UI
+    Better to have Cancel on same button as E "inventory" (close interface)
+    or on Start Editing N (currently opens inventory)?
+    Swap function??
+    give players choice? Ask community?
+    Allow to bind separately???
+
+[Workflow]
+Add blueprint to blueprint, selection is now not automatically added
+    find out why
 
 [Workflow]
 - destroys anything in your cursor when pressing N a second time to switch to inventory (workflow)
@@ -67,6 +80,11 @@ game crashes.
 [Workflow]
 If you rotate a blueprint, and then set an anchor point, the blueprint returns to its original orientation
 Stumpyofpain - Furthermore, blueprints disappear from the tool belt when I change the anchor.
+    Find out where/how game saves "rotated blueprint" in hand. Or where to find/edit that rotation value.
+    Reason: upgrade "anchor to point" feature.
+    Impossible. It classes it as "rendering". Which is inaccessible to mods. 
+    Fix?: Prevent game rotating blueprints, and rotate contents myself.
+
 
 [Optimization]
 - anchor points lag on large blueprints (ie: JohnyDL's 199x199 solar array, 2 second lag)
@@ -74,14 +92,6 @@ Stumpyofpain - Furthermore, blueprints disappear from the tool belt when I chang
 ------------------------ STAGE 2 - NEW KEYS -----------------------
 -------------------------------------------------------------------
 Design Proposal:
-
-
-Key Ctrl-C:
-"Copy" Selection
-
-Key: Esc?/E (or check for user "closed GUI" event for compatibility):
-    unselect(BP) then cancel editing
-    e = clear selection
 
 -------------------------------------------------------------------
 Tasks:
@@ -143,6 +153,13 @@ Works in Multiplayer? (checked once, yep)
 Key: Delete
 remove "selection" entities from blueprint
 
+Key Ctrl-C:
+"Copy" Selection
+
+Key: E (or check for user "closed GUI" event for compatibility(no such thing)):
+    unselect(BP) then cancel editing
+    e = clear selection
+
 -------------------------------------------------------------------
 Testing:
 
@@ -203,6 +220,29 @@ Create one E2E test for each "path"
 Create more E2E tests
 
 -------------------------------------------------------------------
+--------------------- STAGE X - ORIGIN/QOL ------------------------
+-------------------------------------------------------------------
+
+Requirements:
+Entities
+
+Unplaceable entities.
+can we make non-placeable entities (markers), which stay in the BP, but aren't put down in the ghost? (less important)
+If existing invisible, unplaceable object, remove before calculating origin
+
+
+"Visual indicator" of origin? (mini anchor?)
+    - removed before calculating bounding box?
+    - not placeable
+    - no collision
+    
+DEV QOL, and Player QOL
+Editing View nice:
+    Lab tiling unplaceable = "grid" (within "bounding box" of BP)
+    Add "modifying" tile over existing? (seethrough??) / replace existing with coloured = existing tiling + grid
+    Unplaceable "lab tiling" inside blueprints, behind "bounding box" of BP?????? (grid)!!! (along with anchor HIGH QOL improvement!)
+
+-------------------------------------------------------------------
 ---------------------- STAGE X - ALIGNMENT ------------------------
 -------------------------------------------------------------------
 
@@ -220,6 +260,8 @@ USe selection box??
 Collision box -> grid:
     Odd side = -0.5
     Even side = 0
+
+"origin" of item in middle of first block it's in???
 
 -------------------------------------------------------------------
 ------------------ STAGE X + 1 - FULL BLUEPRINT -------------------
@@ -241,10 +283,6 @@ exceptions & handling? (nicer looking code)
 -------------------------------------------------------------------
 --------------------------- Player QOL ----------------------------
 -------------------------------------------------------------------
-"Visual indicator" of origin? (mini anchor?)
-    - removed before calculating bounding box?
-    - not placeable
-    - no collision
 
 Mod options?:
     - copy options: 
@@ -713,10 +751,10 @@ Yes, but only if player actually rotated an in-game entity.
 	
 hand method names: "expel"? wash? empty?let go?
 
-Find out where/how game saves "rotated blueprint" in hand. Or where to find/edit that rotation value.
-Reason: upgrade "anchor to point" feature.
-Impossible. It classes it as "rendering". Which is inaccessible to mods. 
-Fix?: Prevent game rotating blueprints, and rotate contents myself.
+On editing, calculate blueprint bounding box, and fill tiles with lab tiling? (no, might not be desirable)
+
+
+
 -------------------------------------------------------------------
 -------------------------------------------------------------------
 -------------------------------------------------------------------
@@ -789,9 +827,6 @@ Can we modify that? tint/dotted?
 
 Do "entity numbers" affect draw order/visibility?
 
-can we make non-placeable entities (markers), which stay in the BP, but aren't put down in the ghost? (less important)
-If existing invisible, unplacable object, remove before calculating origin
-
 Can we use "swap" to steal an object from the game to keep for editing display??
 -------------------------------------------------------------------
 -------------------------------------------------------------------
@@ -799,16 +834,6 @@ Ideas:
 -------------------------------------------------------------------
 
 Ctrl-A = select all? useful? How is that different to "no selection"?
-
-Unplacable "lab tiling" inside blueprints, behind "bounding box" of BP?????? (grid)!!! (along with anchor HIGH QOL improvement!)
-DEV QOL, and Player QOL
-Requirements:
-Entities
-Unplaceable entities.
-
-On editing, calculate blueprint bounding box, and fill tiles with lab tiling?
-
-"Blueprint string" refers to blueprint in original orientation, with anchor at centre.
 
 Keybinds = Object.extends(Keysequence_Definition_Mapping,"Keybinds")
 "Blueprint string" refers to blueprint in original orientation, with anchor at centre.
@@ -832,10 +857,9 @@ TestFails = {}
         lu.assertTrue(false)
     end
 
-Editing View nice:
-    Lab tiling unplacable = "grid"
-    Add "modifying" tile over existing? (seethrough??) / replace existing with coloured = existing tiling + grid
 
+    
+    
 Reverse order of DAOs retrieval??
 
 Repos?:
@@ -856,3 +880,12 @@ Build Script Ideas:
 end_to_end tests, prevent use of "os"??
 
 
+separate "deploy" option in script. Only zip then, and copy zip to mods folder instead of linking.
+sets "log debug" to false
+local sets "log debug" to true
+File in resources to control?? nah. Generated??
+
+
+Fix the damn build in eclipse!!!
+
+replace "has no selection" in "blueprint edit actions" with one in store.

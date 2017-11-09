@@ -1,0 +1,41 @@
+
+Saturday 4th November:
+So, I've just been adding new keybinds like crazy, to "familiarize" all you guys with the potential full functionality this will have.
+
+This has lead to some setbacks.
+
+One: I ran out of space in my "event sorting" function, as I now have over 26 keybinds, and had to expand on that. I've made it slightly more universal, but not fully.
+
+Two: It's getting a bloody pain in the arse to manually test every single one of these any time I make a change to the inner code, just in case I broke something
+
+So, from that, I went a little nutso, and tried to go full-CI before I even started E2E testing. And basically I ended up finding out a bunch of cool things, but then got bored/ran out of energy to do that before I had anything concrete or workable.
+
+You can see a kind of byproduct of this in my git repo, where I have a few branches of things I've started working on.
+
+I also feel bad, because I feel like I'm not giving you guys the features that I want to, but it's impossible without a stable base.
+
+To wit, I'll now try working on a Faketorio/Busted end to end suite that will let me change code with impunity, or tell me when I've fucked something up.
+
+That is all for now
+
+-BFM
+
+Sunday 5th November:
+I've spent about a day or two twatting about with cucumber (because I decided I just didn't like busted), but cucumber-lua was broken. 
+
+I've made a pull request to their repo.
+
+In the meantime, I've updated my incredibly detailed "Setup" text file to point to my fork that will work.
+
+Oh yeah. I've also spent some time putting together a "setup" file, that will tell you exactly how to set stuff up to mod this project. Because I feel sorry for myself for having to go through all that, never want to forget it, and think it's impossible for a novice to blunder through, to get the correct final result. (If someone has a better way of installing Lua on Windows, PLEASE tell me.)
+https://github.com/Bigfootmech/Factorio_Blueprint_Editor-notes/blob/master/Setup.txt
+
+From later in the day:
+sod this.
+I really wanted to use cucumber.
+But between its difficulty to install properly, run cucumber-lua at all, bugs in that, and on top of all that, the garbage that is lua pattern matching (at least for this application).
+I'm just going to knock it on the head.
+
+I need tests now, not when everything decides to fix itself.
+
+I guess I'll  try writing luaunit e2e tests :/
