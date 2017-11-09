@@ -11,7 +11,7 @@ Normal progress
     1. Script demonstration [DONE]
     2. Working Code [DONE][SHOWSTOPPING BUG]
     3. Better codebase, working code [DONE] (version 0.1)
-    4. Individual element all commands
+    4. Individual element all commands [DONE] (version 0.2)
     
 Player QOL
     - PR
@@ -89,135 +89,15 @@ Stumpyofpain - Furthermore, blueprints disappear from the tool belt when I chang
 [Optimization]
 - anchor points lag on large blueprints (ie: JohnyDL's 199x199 solar array, 2 second lag)
 -------------------------------------------------------------------
------------------------- STAGE 2 - NEW KEYS -----------------------
--------------------------------------------------------------------
-Design Proposal:
-
--------------------------------------------------------------------
-Tasks:
-
-
--------------------------------------------------------------------
-DONE:
-
-[quote]Also most of my blueprints when holding in hand and pressing N instantly error out with "/lib/logic/model/blueprint/Blueprint_Entity.lua:47:fail direction". When running event BPEdit::a-primary-action.
-The direction crash is probably related to any entity haveing a direction at all (e.g. miners, rails, belts) etc as opposed to non-rotatables like accumulators. Yep. Single Assembler with recipe works, with fluid recipe in default rotation works, with fluid recipe in different rotation errors.[/quote]
-Add credit eradicator for bug testing
-fixed?? (waiting on eradicator to confirm)
-(assuming fixed)
-
-Mods folder hooked up in such a way, that I don't have to deploy every time?
--delete bpedit and lib, copy everything else
--make sure bpedit and lib are symlinked correctly (use environment vars to point to dev location?)
-
-CAPSLOCK = set origin
-
-NUMPAD 1-9 = set origin to point on blueprint
-
-Tab:
-change selection (current) - after import, or move selects only 1 element??
-Shift Tab:
-"lock in" selection element, and start selecting new one (dependency on seeing what's selected?)
-moves view to centre on selected object???
-
-Key R:
-- Rotation 90* CW and CCW
-rotate entity -> nil = default (mini recursion)
-
-Key: Enter
-second/nongui "confirm"
-
-Key M:
-- Mirror Horisontal & vertical
-- what do shift and control M do? (nothing apart from map)
-- "mirror" direction object facing
-    Individual mirror Y axis (x=0) = 8 - dir % 8 (or (#dir-dirn)%#dir) (or if 0 -> 0, else 8 - dir)
-    Individual mirror X axis (y=0) = MOD(4-A1,8) (or, ((#dir/2)-dirn)%#dir)
-
-    Generalized:
-    (N - dirn)%#dir
-    N=0 -> Y axis (x=0)
-    N=4 -> X axis (y=0)
-    N=2 -> Northeast line (x=y standard, x=-y game)
-    N=6 -> Northwest line (x=-y standard, x=y game)
-    Inbetween = inbetween lines
-
-    Final formula for reflecting a "direction facing", in a mirror on line going through "direction" P
-
-    (((P*2)%#dir)-dirn)%#dir
-
-    Diagonal blueprint reflect covered
-
-Works in Multiplayer? (checked once, yep)
-
-Key: Delete
-remove "selection" entities from blueprint
-
-Key Ctrl-C:
-"Copy" Selection
-
-Key: E (or check for user "closed GUI" event for compatibility(no such thing)):
-    unselect(BP) then cancel editing
-    e = clear selection
-
--------------------------------------------------------------------
-Testing:
-
-Too many things to manually test. Need automated end-to-end testing :(.
-
-End to End testing - Faketorio. Busted? Cucumber? Luaunit?!?
-
-Luaunit sort of works for now.
-    
-Find out why error isn't being printed on player?
-not loading "data" 2nd time... weird
-Caching :/
-
-Use actual Dal for getting/setting data? (fast, easy, erronious?)
-"clear hand" always sets to lua stack "empty"?
-Create convincing "userdata" for testing?
-
--------------------------------------------------------------------
-Repos:
-"notes" out of repo, because it's not really version-related (but I still want it online/synced)
-
-Check stash, and either branch, or discard.
-
--------------------------------------------------------------------
-
-DEV_QOL:
-- Set(Numbers) = generics
-- type check enable (nil = don't check insertion object type)
-- Rework set to be Table key (easier)
-Set
-x-> true?
-x-> index? (copy game spec)
-
-- Rename table to map, Array -> List (map, list, set. 3 distinct "table"s)
-
-parent = get_metatable(self)["__index"]
-super = function(...) return parent(...) end
--- not quite. I just set parent to be a field on a class (as well as __index on metatable). Could affect deepcopying performance.
-
-- Object base = table, because of "tostring"?? (screwy)
-- Util class = Table.to_string?
--- moved tostring just to object. Map inherits. All inherit.
-
-Added fun "json" serializing to table/dict/map and array/list
-
-Figure out how to get eclipse to track imports? / click filename -> navigates
-	Have to set src and test as "source folders"
-    
-local deploy correctly deletes zip files
-
--------------------------------------------------------------------
 ----------------------- STAGE X - CEMENTING -----------------------
 -------------------------------------------------------------------
 
 Fix bugs.
 Increase stability.
+ - pcall error catching at API level (players don't immediately crash)
 Create one E2E test for each "path"
 Create more E2E tests
+Pay tech debt
 
 -------------------------------------------------------------------
 --------------------- STAGE X - ORIGIN/QOL ------------------------
@@ -270,15 +150,6 @@ Collision box -> grid:
 "Copy" = create carbon copy of whole blueprint, as item (ctrl-C, applies to selection - re-insert or whole BP)
 "Rotate"
 "Mirror"
-
--------------------------------------------------------------------
----------------------------- Stability? ---------------------------
--------------------------------------------------------------------
-
-exceptions & handling? (nicer looking code)
-- pcall error catching at API level! (players don't immediately crash!)
-- Bundling errors? / catch & rethrow for extra info?
-- fix known issues
 
 -------------------------------------------------------------------
 --------------------------- Player QOL ----------------------------
@@ -466,6 +337,8 @@ Types class / type handling & checking (strict type vs no check (forced check fo
 
 recalculate bounding box only on add/remove entity?? (and "move" bounding box with the rest of entities by vector)
 
+"Blueprint string" refers to blueprint in original orientation, with anchor at centre.
+
 Known issue:
 - anchor points lag on large blueprints (ie: JohnyDL's 199x199 solar array, 2 second lag)
 Solution?:
@@ -479,22 +352,14 @@ Stop unnecesarry setting (where tables/pointers are already in place)
 -------------------------- Code Quality ---------------------------
 -------------------------------------------------------------------
 
+replace "has no selection" in "blueprint edit actions" with one in store.
+
+Stop mixing concepts array-table for blueprint entities (always array)
+On import from game - verify array position = element number! (otherwise, new array -> wrap -> correct)
+    
+Reverse order of DAOs retrieval??
+
 Separation of concern between Object (inherited), and Class (way of inheritence)
-
-rename confusing method names:
-"destroy" hand vs stow
-
-Logger
-Logger class "debug" settable field (global esentially)
-Logger class attached on "class new" or "class extends", with type as argument.
-Log player format(method) [id]name
-
-log.info(normal stuff)
-log.debug(trying stuff)
-    if(logger.debug)
-        {}any string concat/operations
-    end
-log.error(something fucked up)
 
 checkstyle/pmd?? auto fix??
 https://pmd.github.io/
@@ -520,6 +385,8 @@ Explicit Array class?
 ---------------------------- Testing ------------------------------
 -------------------------------------------------------------------
 
+end_to_end tests, prevent use of "os"??
+
 Mocker Spies? (Busted has them)
 Wrap class. Wrap method. Add "calls" Array, which stores arguments as a table. #Array = number of times called.
 Use Busted?
@@ -532,19 +399,43 @@ CI with AppVeyor/Travis/CircleCI?
 ----------------------------- DEV QOL -----------------------------
 -------------------------------------------------------------------
 
+separate "deploy" option in script. Only zip then, and copy zip to mods folder instead of linking.
+sets "log debug" to false
+local sets "log debug" to true
+File in resources to control?? nah. Generated??
 
-2D orthogonal vector = rotate 90 degrees (mirror in direction, rather than in line through direction)
-
+Build Script Ideas:
+    try - catch around "clearing" in build - let dev see what happened
+    Move mod info to src/main/resources, and use that for build?
+    Build number = input to py script
+    Local version = don't use version (more difficult to deploy from local)
+    if versioning, don't local?? (no, it's not commutative)
+    
 Position and vector operations with + - / *
 
 Python scans /test for Test classes
 - python test class finder excludes "userdata" test for now.
+
+Repos?:
+    break up repos in to 
+    -IT
+    -bpedit & test
+    -lib & test
+    -core & test
+    -core mocks?? (mock userdata)
+    reason: use mock userdata in test, and IT
+    use core in main,test, and IT
+
+2D orthogonal vector = rotate 90 degrees (mirror in direction, rather than in line through direction)
 
 Add Paypal
 
 Like the drugs one has patreon XD
 "If you wanna give me something as a 'thank you'/'I appreciate this'/'do more of this'.
 Not gonna lie, it's probably gonna go on video games, and booze(aka: coding fuel)."
+
+Want to give, but don't have money? No problem! Send me an email, or message telling me how much you like my mod. I'll really appreciate it :). Looking for, and reporting bugs is another good way to contribute! (if you have time)
+Don't want to, or don't feel like it? No problem! You're free to be you man :).
 
 Normal behaviour: version = "local", and tries to post to appdata/factoriomods. links up.
 build -t = just tests
@@ -554,6 +445,7 @@ Checks changelog for corresponding entry
 - Deploys zip instead of "linked dir" to factorio mods
 - don't create zip unless "releasing"
 
+Bundling errors? / catch & rethrow for extra info?
 -------------------------------------------------------------------
 ----------------------------- Unsure ------------------------------
 -------------------------------------------------------------------
@@ -755,6 +647,25 @@ On editing, calculate blueprint bounding box, and fill tiles with lab tiling? (n
 
 
 
+Logger
+    Logger class "debug" settable field (global esentially)
+    Logger class attached on "class new" or "class extends", with type as argument.
+    Log player format(method) [id]name
+
+    log.info(normal stuff)
+    log.debug(trying stuff)
+        if(logger.debug)
+            {}any string concat/operations
+        end
+    log.error(something fucked up)
+Actually, game logger seems to work fine. I can have a global "debug" option though, if I wanted to
+    have specific "debug" log items.
+
+On editing, calculate blueprint bounding box, and fill tiles with lab tiling? 
+    (no, player might not want it?)
+
+Ctrl-A = select all? useful? How is that different to "no selection"? (not enough 
+    significant difference?)
 -------------------------------------------------------------------
 -------------------------------------------------------------------
 -------------------------------------------------------------------
@@ -833,59 +744,3 @@ Can we use "swap" to steal an object from the game to keep for editing display??
 Ideas: 
 -------------------------------------------------------------------
 
-Ctrl-A = select all? useful? How is that different to "no selection"?
-
-Keybinds = Object.extends(Keysequence_Definition_Mapping,"Keybinds")
-"Blueprint string" refers to blueprint in original orientation, with anchor at centre.
-
-On editing, calculate blueprint bounding box, and fill tiles with lab tiling?
-
-Want to give, but don't have money? No problem! Send me an email, or message telling me how much you like my mod. I'll really appreciate it :). Looking for, and reporting bugs is another good way to contribute! (if you have time)
-Don't want to, or don't feel like it? No problem! You're free to be you man :).
-
-
-On import from game - verify array position = element number! (otherwise, new table -> wrap -> correct)
-
-Stop mixing concepts array-table for blueprint entities
-
-
-"Blueprint string" refers to blueprint in original orientation, with anchor at centre.
-
-CI Note:
-TestFails = {}
-    function TestFails:testFails()
-        lu.assertTrue(false)
-    end
-
-
-    
-    
-Reverse order of DAOs retrieval??
-
-Repos?:
-    break up repos in to 
-    -IT
-    -bpedit & test
-    -lib & test
-    -core & test
-    -core mocks?? (mock userdata)
-
-Build Script Ideas:
-    try - catch around "clearing" in build - let dev see what happened
-    Move mod info to src/main/resources, and use that for build?
-    Build number = input to py script
-    Local version = don't use version (more difficult to deploy from local)
-    if versioning, don't local?? (no, it's not commutative)
-
-end_to_end tests, prevent use of "os"??
-
-
-separate "deploy" option in script. Only zip then, and copy zip to mods folder instead of linking.
-sets "log debug" to false
-local sets "log debug" to true
-File in resources to control?? nah. Generated??
-
-
-Fix the damn build in eclipse!!!
-
-replace "has no selection" in "blueprint edit actions" with one in store.

@@ -1,0 +1,122 @@
+
+-------------------------------------------------------------------
+------------------------ STAGE 2 - NEW KEYS -----------------------
+-------------------------------------------------------------------
+Design Proposal:
+
+-------------------------------------------------------------------
+Tasks:
+
+
+-------------------------------------------------------------------
+DONE:
+
+[quote]Also most of my blueprints when holding in hand and pressing N instantly error out with "/lib/logic/model/blueprint/Blueprint_Entity.lua:47:fail direction". When running event BPEdit::a-primary-action.
+The direction crash is probably related to any entity haveing a direction at all (e.g. miners, rails, belts) etc as opposed to non-rotatables like accumulators. Yep. Single Assembler with recipe works, with fluid recipe in default rotation works, with fluid recipe in different rotation errors.[/quote]
+Add credit eradicator for bug testing
+fixed?? (waiting on eradicator to confirm)
+(assuming fixed)
+
+Mods folder hooked up in such a way, that I don't have to deploy every time?
+-delete bpedit and lib, copy everything else
+-make sure bpedit and lib are symlinked correctly (use environment vars to point to dev location?)
+
+CAPSLOCK = set origin
+
+NUMPAD 1-9 = set origin to point on blueprint
+
+Tab:
+change selection (current) - after import, or move selects only 1 element??
+Shift Tab:
+"lock in" selection element, and start selecting new one (dependency on seeing what's selected?)
+moves view to centre on selected object???
+
+Key R:
+- Rotation 90* CW and CCW
+rotate entity -> nil = default (mini recursion)
+
+Key: Enter
+second/nongui "confirm"
+
+Key M:
+- Mirror Horisontal & vertical
+- what do shift and control M do? (nothing apart from map)
+- "mirror" direction object facing
+    Individual mirror Y axis (x=0) = 8 - dir % 8 (or (#dir-dirn)%#dir) (or if 0 -> 0, else 8 - dir)
+    Individual mirror X axis (y=0) = MOD(4-A1,8) (or, ((#dir/2)-dirn)%#dir)
+
+    Generalized:
+    (N - dirn)%#dir
+    N=0 -> Y axis (x=0)
+    N=4 -> X axis (y=0)
+    N=2 -> Northeast line (x=y standard, x=-y game)
+    N=6 -> Northwest line (x=-y standard, x=y game)
+    Inbetween = inbetween lines
+
+    Final formula for reflecting a "direction facing", in a mirror on line going through "direction" P
+
+    (((P*2)%#dir)-dirn)%#dir
+
+    Diagonal blueprint reflect covered
+
+Works in Multiplayer? (checked once, yep)
+
+Key: Delete
+remove "selection" entities from blueprint
+
+Key Ctrl-C:
+"Copy" Selection
+
+Key: E (or check for user "closed GUI" event for compatibility(no such thing)):
+    unselect(BP) then cancel editing
+    e = clear selection
+
+-------------------------------------------------------------------
+Testing:
+
+Too many things to manually test. Need automated end-to-end testing :(.
+
+End to End testing - Faketorio. Busted? Cucumber? Luaunit?!?
+
+Luaunit sort of works for now.
+    
+Find out why error isn't being printed on player?
+not loading "data" 2nd time... weird
+Caching :/
+
+Use actual Dal for getting/setting data? (fast, easy, erronious?)
+"clear hand" always sets to lua stack "empty"?
+Create convincing "userdata" for testing?
+
+-------------------------------------------------------------------
+Repos:
+"notes" out of repo, because it's not really version-related (but I still want it online/synced)
+
+Check stash, and either branch, or discard.
+
+-------------------------------------------------------------------
+
+DEV_QOL:
+- Set(Numbers) = generics
+- type check enable (nil = don't check insertion object type)
+- Rework set to be Table key (easier)
+Set
+x-> true?
+x-> index? (copy game spec)
+
+- Rename table to map, Array -> List (map, list, set. 3 distinct "table"s)
+
+parent = get_metatable(self)["__index"]
+super = function(...) return parent(...) end
+-- not quite. I just set parent to be a field on a class (as well as __index on metatable). Could affect deepcopying performance.
+
+- Object base = table, because of "tostring"?? (screwy)
+- Util class = Table.to_string?
+-- moved tostring just to object. Map inherits. All inherit.
+
+Added fun "json" serializing to table/dict/map and array/list
+
+Figure out how to get eclipse to track imports? / click filename -> navigates
+	Have to set src and test as "source folders"
+    
+local deploy correctly deletes zip files

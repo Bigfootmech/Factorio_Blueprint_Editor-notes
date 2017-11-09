@@ -1,0 +1,5 @@
+
+TestFails = {}
+    function TestFails:testFails()
+        lu.assertTrue(false)
+    end
