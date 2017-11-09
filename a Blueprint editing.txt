@@ -143,6 +143,17 @@ Collision box -> grid:
 
 "origin" of item in middle of first block it's in???
 
+https://wiki.factorio.com/Prototype/Entity
+
+tile_width
+Type: Types/unsigned
+Default: calculated by the collision box width rounded up.
+Used to determine how the center of the entity should be positioned when building (unless the offgrid flag is specified). When the tile width is odd, the center will be in the center of the tile, when it is even, the center is on the tile transition.
+
+tile_height
+Type: Types/unsigned
+Default: calculated by the collision box height rounded up. 
+
 -------------------------------------------------------------------
 ------------------ STAGE X + 1 - FULL BLUEPRINT -------------------
 -------------------------------------------------------------------
