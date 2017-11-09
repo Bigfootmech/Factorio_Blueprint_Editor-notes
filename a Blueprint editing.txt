@@ -195,7 +195,7 @@ Figure out how to get eclipse to track imports? / click filename -> navigates
 local deploy correctly deletes zip files
 
 -------------------------------------------------------------------
------------------------ STAGE 3 - CEMENTING -----------------------
+----------------------- STAGE X - CEMENTING -----------------------
 -------------------------------------------------------------------
 
 Fix bugs.
@@ -204,7 +204,7 @@ Create one E2E test for each "path"
 Create more E2E tests
 
 -------------------------------------------------------------------
----------------------- STAGE 4 - ALIGNMENT ------------------------
+---------------------- STAGE X - ALIGNMENT ------------------------
 -------------------------------------------------------------------
 
 Research selection, and collision boxes
@@ -212,7 +212,7 @@ Squeak through
 Origins... etc.
 
 -------------------------------------------------------------------
--------------------- STAGE 5 - FULL BLUEPRINT ---------------------
+-------------------- STAGE X - FULL BLUEPRINT ---------------------
 -------------------------------------------------------------------
 
 "Copy" = create carbon copy of whole blueprint, as item (ctrl-C, applies to selection - re-insert or whole BP)
