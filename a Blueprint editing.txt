@@ -5,15 +5,13 @@ THIS MAY NOT BE THE FINAL PRODUCT. ALL IS LIABLE TO CHANGE.
 THIS IS MY SCRATCH PAD FOR IDEAS / EXPOSING MY INNER WORKINGS.
 
 -------------------------------------------------------------------
-------------------------- Dependencies ----------------------------
+----------------------------- Index -------------------------------
 -------------------------------------------------------------------
 Normal progress
     1. Script demonstration [DONE]
     2. Working Code [DONE][SHOWSTOPPING BUG]
     3. Better codebase, working code [DONE] (version 0.1)
-    4. Individual element 
-    5. Full blueprint 
-    6. multiple selection / Adding full blueprints to existing blueprints
+    4. Individual element all commands
     
 Player QOL
     - PR
@@ -41,7 +39,6 @@ Blueprint editing!!!
 -------------------------------------------------------------------
 New Issues: 
 
-factorio verify player gets error message "nothing editing" (done. true.)
 
 -------------------------------------------------------------------
 Tech Debt: 
@@ -83,24 +80,15 @@ Design Proposal:
 
 
 Key Ctrl-C:
-"Copy" = create carbon copy of whole blueprint, as item (ctrl-C, applies to selection - re-insert or whole BP)
+"Copy" Selection
 
 Key: Esc?/E (or check for user "closed GUI" event for compatibility):
     unselect(BP) then cancel editing
     e = clear selection
-    e = cancel (restore blueprint from before started editing)
 
 -------------------------------------------------------------------
 Tasks:
 
-Use actual Dal for getting/setting data? (fast, easy, erronious?)
-Create a dal proxy?(long. extra upkeep)
-mock/spy on real dal module? (no, we want E2E to be complete)
-
-"clear hand" always sets to lua stack "empty"?
-Create convincing "userdata" for testing?
-
-Merge current branch to master
 
 -------------------------------------------------------------------
 DONE:
@@ -153,9 +141,11 @@ Key M:
 
     Diagonal blueprint reflect covered
 
-Find out why error isn't being printed on player?
-not loading "data" 2nd time... weird
-Caching :/
+Key: Delete
+remove "selection" entities from blueprint
+
+-------------------------------------------------------------------
+Testing:
 
 Too many things to manually test. Need automated end-to-end testing :(.
 
@@ -163,11 +153,19 @@ End to End testing - Faketorio. Busted? Cucumber? Luaunit?!?
 
 Luaunit sort of works for now.
     
+Find out why error isn't being printed on player?
+not loading "data" 2nd time... weird
+Caching :/
+
+Use actual Dal for getting/setting data? (fast, easy, erronious?)
+"clear hand" always sets to lua stack "empty"?
+Create convincing "userdata" for testing?
+
+-------------------------------------------------------------------
+Repos:
 "notes" out of repo, because it's not really version-related (but I still want it online/synced)
 
-Key: Delete
-remove "selection" entities from blueprint
-
+Check stash, and either branch, or discard.
 
 -------------------------------------------------------------------
 
@@ -200,19 +198,26 @@ local deploy correctly deletes zip files
 ----------------------- STAGE 3 - CEMENTING -----------------------
 -------------------------------------------------------------------
 
-Check stash, and either branch, or discard.
 Fix bugs.
 Increase stability.
 Create one E2E test for each "path"
 Create more E2E tests
 
 -------------------------------------------------------------------
--------------------- STAGE 4 - FULL BLUEPRINT ---------------------
+---------------------- STAGE 4 - ALIGNMENT ------------------------
 -------------------------------------------------------------------
 
 Research selection, and collision boxes
 Squeak through
 Origins... etc.
+
+-------------------------------------------------------------------
+-------------------- STAGE 5 - FULL BLUEPRINT ---------------------
+-------------------------------------------------------------------
+
+"Copy" = create carbon copy of whole blueprint, as item (ctrl-C, applies to selection - re-insert or whole BP)
+"Rotate"
+"Mirror"
 
 -------------------------------------------------------------------
 ---------------------------- Stability? ---------------------------
@@ -250,7 +255,7 @@ on selection change, if button held down ???, and within player build area, and 
 ----------------------------- Workflow ----------------------------
 -------------------------------------------------------------------
 
-sorage: command to confirm "cancel editing"
+storage: command to CONFIRM "cancel editing"
     e again (before another action) = cancel, restore original blueprint
     Hold original blueprint in store!!
 cleared on every other command
@@ -395,6 +400,7 @@ If: last changed = selection, and selection changed - undo MERGE
 If last changed = entities, and entities change - undo MERGE
 otherwise, new entry.
 
+    e = cancel (restore blueprint from before started editing)
 -------------------------------------------------------------------
 --------------------------- Tile Editing --------------------------
 -------------------------------------------------------------------
