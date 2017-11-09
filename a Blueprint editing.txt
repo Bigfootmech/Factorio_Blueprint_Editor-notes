@@ -82,9 +82,6 @@ Stumpyofpain - Furthermore, blueprints disappear from the tool belt when I chang
 Design Proposal:
 
 
-Key: Delete
-remove "selection" entities from blueprint
-
 Key Ctrl-C:
 "Copy" = create carbon copy of whole blueprint, as item (ctrl-C, applies to selection - re-insert or whole BP)
 
@@ -160,8 +157,17 @@ Find out why error isn't being printed on player?
 not loading "data" 2nd time... weird
 Caching :/
 
+Too many things to manually test. Need automated end-to-end testing :(.
+
 End to End testing - Faketorio. Busted? Cucumber? Luaunit?!?
-    Create one E2E test for each "path"
+
+Luaunit sort of works for now.
+    
+"notes" out of repo, because it's not really version-related (but I still want it online/synced)
+
+Key: Delete
+remove "selection" entities from blueprint
+
 
 -------------------------------------------------------------------
 
@@ -197,6 +203,7 @@ local deploy correctly deletes zip files
 Check stash, and either branch, or discard.
 Fix bugs.
 Increase stability.
+Create one E2E test for each "path"
 Create more E2E tests
 
 -------------------------------------------------------------------
@@ -804,36 +811,38 @@ Don't want to, or don't feel like it? No problem! You're free to be you man :).
 
 On import from game - verify array position = element number! (otherwise, new table -> wrap -> correct)
 
-Too many things to manually test. Need automated end-to-end testing :(.
+Stop mixing concepts array-table for blueprint entities
 
-Stop mixing concepts array-table for blueprint entities"Blueprint string" refers to blueprint in original orientation, with anchor at centre.
 
+"Blueprint string" refers to blueprint in original orientation, with anchor at centre.
+
+CI Note:
 TestFails = {}
     function TestFails:testFails()
         lu.assertTrue(false)
     end
-    
-Lab tiling unplacable = "grid"
-Add "modifying" tile over existing? (seethrough??) / replace existing with coloured = existing tiling + grid
 
-"notes" out of repo, because it's not really version-related (but I still want it online/synced)
-
-try - catch around "clearing" in build - let dev see what happened
-
-Move mod info to src/main/resources, and use that for build?
-
-Build number = input to py script
+Editing View nice:
+    Lab tiling unplacable = "grid"
+    Add "modifying" tile over existing? (seethrough??) / replace existing with coloured = existing tiling + grid
 
 Reverse order of DAOs retrieval??
 
-break up repos in to 
--IT
--bpedit & test
--lib & test
--core & test
--core mocks?? (mock userdata)
+Repos?:
+    break up repos in to 
+    -IT
+    -bpedit & test
+    -lib & test
+    -core & test
+    -core mocks?? (mock userdata)
 
-Local version = don't use version
+Build Script Ideas:
+    try - catch around "clearing" in build - let dev see what happened
+    Move mod info to src/main/resources, and use that for build?
+    Build number = input to py script
+    Local version = don't use version (more difficult to deploy from local)
+    if versioning, don't local?? (no, it's not commutative)
 
-if versioning, don't local??
+end_to_end tests, prevent use of "os"??
+
 
