@@ -49,9 +49,6 @@ Tidy away blueprint handling from Api?
 -------------------------------------------------------------------
 Known Issues:
 
-
-- Works in Multiplayer? (check) (with whom?!? o0)
-
 [Stability]
 - game crashes on "add" non-blueprint?
 - game crashes on "add" Q-select
@@ -141,6 +138,8 @@ Key M:
 
     Diagonal blueprint reflect covered
 
+Works in Multiplayer? (checked once, yep)
+
 Key: Delete
 remove "selection" entities from blueprint
 
@@ -211,8 +210,19 @@ Research selection, and collision boxes
 Squeak through
 Origins... etc.
 
+LuaEntityPrototype.collision_box - check it out (and selection_box)
+- Collision_box = start everything on the grid correctly, and change "increment" from 0.5 to 1
+-- Detection if element is "on grid" when you start moving it. If not, move to grid first.
+Collision box ceil should compensate for mods making them smaller, like "squeaak through"?
+USe selection box??
+"Origin" seems to be top left of entity?!?
+
+Collision box -> grid:
+    Odd side = -0.5
+    Even side = 0
+
 -------------------------------------------------------------------
--------------------- STAGE X - FULL BLUEPRINT ---------------------
+------------------ STAGE X + 1 - FULL BLUEPRINT -------------------
 -------------------------------------------------------------------
 
 "Copy" = create carbon copy of whole blueprint, as item (ctrl-C, applies to selection - re-insert or whole BP)
@@ -336,20 +346,11 @@ if not editing, no BP in hand, no mouseover_selection = start editing new (empty
 ------------------------ Multiple Selection -----------------------
 -------------------------------------------------------------------
 
-LuaEntityPrototype.collision_box - check it out
-- Collision_box = start everything on the grid correctly, and change "increment" from 0.5 to 1
--- Detection if element is "on grid" when you start moving it. If not, move to grid first.
-Collision box ceil should compensate for mods making them smaller, like "squeaak through"?
-USe selection box??
-"Origin" seems to be top left of entity?!?
-
-Collision box -> grid:
-    Odd side = -0.5
-    Even side = 0
-
 Editable options: How far do move/shiftmove an item (0.5/1/2/5/6...)
 
 - Allow full blueprint to blueprint addition (multiple entities & selected at once)
+    
+Shift-Tab = "lock in" existing selection
 
 Implement matrix classes with Lua matrix??
 
@@ -407,6 +408,8 @@ otherwise, new entry.
 Key X:
 Tile editing
 - switch from entity selection to tiles
+
+Inner tiles keyed by position, cycle through with next(tile_map, previous)
 
 -------------------------------------------------------------------
 ------------------------------ PR ---------------------------------
@@ -481,6 +484,7 @@ Explicit Array class?
 
 Mocker Spies? (Busted has them)
 Wrap class. Wrap method. Add "calls" Array, which stores arguments as a table. #Array = number of times called.
+Use Busted?
 
 fix error inconsistently failing to clean target (after manually accessed by windows)
 
