@@ -70,10 +70,6 @@ E kinda closes blueprint even if I push to UI
     Allow to bind separately???
 
 [Workflow]
-Add blueprint to blueprint, selection is now not automatically added
-    find out why
-
-[Workflow]
 - destroys anything in your cursor when pressing N a second time to switch to inventory (workflow)
     (use player "changes cursor" event, to disable deleting?)
 
@@ -134,6 +130,16 @@ Used to determine how the center of the entity should be positioned when buildin
 tile_height
 Type: Types/unsigned
 Default: calculated by the collision box height rounded up. 
+
+power poles = 0.7 gap (doable)
+
+
+ADD correctly
+
+Rotate individual oblong correctly.
+
+Change default move to 1, shift move to 5?
+
 
 -------------------------------------------------------------------
 ------------------ STAGE X + 1 - FULL BLUEPRINT -------------------

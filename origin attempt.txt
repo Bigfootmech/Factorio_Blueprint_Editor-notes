@@ -6,6 +6,11 @@ font -- crashes game
 tool -- durability
 tree -- entity is not valid for blueprint V_V
 simple-entity -- not valid for blueprint V_V V_V V_V are you shitting me?
+^^^
++ landfill blueprint = work??
+
+
+
 corpse -- not valid for blueprint
 unit-spawner -- animations
 item -- unknown entity name (item is not an entity)
