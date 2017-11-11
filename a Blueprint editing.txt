@@ -37,7 +37,7 @@ Big pieces
 -------------------------------------------------------------------
 Blueprint editing!!!
 -------------------------------------------------------------------
-New Issues: 
+"E" locks player out of inventory effectively :/
 
 
 -------------------------------------------------------------------
@@ -767,3 +767,5 @@ Can we use "swap" to steal an object from the game to keep for editing display??
 Ideas: 
 -------------------------------------------------------------------
 
+multithread movement calculations?
+check out profiler http://luaprofiler.luaforge.net/index.html
