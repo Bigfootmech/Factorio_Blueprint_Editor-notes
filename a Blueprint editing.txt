@@ -151,12 +151,16 @@ Change anchor point to selection element fixed
 change anchor points to centre points... I can't see the effect :/
     (try move everything off grid, then add something)
 Odd side fine, even needs to be moved.
+
+"on grid" separate concept to both entity, and bounding box? -> extract??
 Property of "position"? ("on grid" -> 0.5s or 1s with 1 spacing?)
-Bot really. Bounding box has a different behaviour (all directions)
+    Not really. Bounding box has a different behaviour (all directions)
 
-Add bounding boxes for tiles!
+Tile box extends bounding box (done)
 
-Test tiles!
+replace grid related stuff in Entity with Grid class
+Extract entity prototype stuff to back end
+
 
 -------------------------------------------------------------------
 ------------------ STAGE X + 1 - FULL BLUEPRINT -------------------
@@ -190,6 +194,9 @@ Editing View nice:
     Lab tiling unplaceable = "grid" (within "bounding box" of BP)
     Add "modifying" tile over existing? (seethrough??) / replace existing with coloured = existing tiling + grid
     Unplaceable "lab tiling" inside blueprints, behind "bounding box" of BP?????? (grid)!!! (along with anchor HIGH QOL improvement!)
+
+Tasks:
+Look for game graphics yellow boarder selection outline (can't find one in base, or core. There's a misaligned one in core)
 
 -------------------------------------------------------------------
 --------------------------- Player QOL ----------------------------
@@ -360,6 +367,9 @@ Tile editing
 
 Inner tiles keyed by position, cycle through with next(tile_map, previous)
 
+Add tiles?
+Add tile boxes for tiles!
+Test tiles!
 -------------------------------------------------------------------
 ------------------------------ PR ---------------------------------
 -------------------------------------------------------------------
@@ -786,11 +796,10 @@ Ideas:
 
 Tile select shift and ctrl tab select more horisontal/vertical from start(tab)
 
-multithread movement calculations?
 check out profiler http://luaprofiler.luaforge.net/index.html
+multithread movement calculations?
+Efficiency: get first, and last element in entities list, and hope it reduces number of changes you have to make?
+later sort to make sure it makes a difference?
 
-"on grid" separate concept to both entity, and bounding box? -> extract??
 
-Look for game graphics yellow boarder selection outline (can't find one in base, or core. There's a misaligned one in core)
 
-Tile box extends bounding box?
