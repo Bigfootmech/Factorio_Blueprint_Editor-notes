@@ -150,6 +150,9 @@ Change anchor point to selection element fixed
 
 change anchor points to centre points... I can't see the effect :/
     (try move everything off grid, then add something)
+Odd side fine, even needs to be moved.
+Property of "position"? ("on grid" -> 0.5s or 1s with 1 spacing?)
+Bot really. Bounding box has a different behaviour (all directions)
 
 Add bounding boxes for tiles!
 
@@ -787,3 +790,7 @@ multithread movement calculations?
 check out profiler http://luaprofiler.luaforge.net/index.html
 
 "on grid" separate concept to both entity, and bounding box? -> extract??
+
+Look for game graphics yellow boarder selection outline (can't find one in base, or core. There's a misaligned one in core)
+
+Tile box extends bounding box?
