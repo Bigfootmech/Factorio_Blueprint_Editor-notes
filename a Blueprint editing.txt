@@ -49,6 +49,8 @@ Tidy away blueprint handling from Api?
 -------------------------------------------------------------------
 Known Issues:
 
+"Rotate selection" text appears, when no selection.
+
 [Stability]
 - game crashes on "add" non-blueprint?
 - game crashes on "add" Q-select
