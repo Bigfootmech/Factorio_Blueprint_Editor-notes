@@ -142,6 +142,18 @@ Rotate individual oblong correctly.
 
 Change default move to 1, shift move to 5?
 
+Change anchor points to corners? rather than object centre?? Yeah, breaks grid.
+
+Change anchor points to corners now fixed
+
+Change anchor point to selection element fixed
+
+change anchor points to centre points... I can't see the effect :/
+    (try move everything off grid, then add something)
+
+Add bounding boxes for tiles!
+
+Test tiles!
 
 -------------------------------------------------------------------
 ------------------ STAGE X + 1 - FULL BLUEPRINT -------------------
@@ -769,5 +781,9 @@ Can we use "swap" to steal an object from the game to keep for editing display??
 Ideas: 
 -------------------------------------------------------------------
 
+Tile select shift and ctrl tab select more horisontal/vertical from start(tab)
+
 multithread movement calculations?
 check out profiler http://luaprofiler.luaforge.net/index.html
+
+"on grid" separate concept to both entity, and bounding box? -> extract??
