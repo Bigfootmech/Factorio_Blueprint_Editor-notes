@@ -52,6 +52,9 @@ Known Issues:
 "Rotate selection" text appears, when no selection.
 
 [Stability]
+game crashes when you try to set anchor on blueprint with no entities, or tiles.
+
+[Stability]
 - game crashes on "add" non-blueprint?
 - game crashes on "add" Q-select
 - game crashes a lot (need to implement pcalls)
@@ -82,6 +85,13 @@ Stumpyofpain - Furthermore, blueprints disappear from the tool belt when I chang
     Reason: upgrade "anchor to point" feature.
     Impossible. It classes it as "rendering". Which is inaccessible to mods. 
     Fix?: Prevent game rotating blueprints, and rotate contents myself.
+    
+    Better fix?
+    Or Try to make both rotation, and anchoring "stateless" 
+    Track all blueprints that have been anchored, or rotated. (change anchor based on rotation, or stateful rotation?)
+        detect when a player either takes a blueprint out of their hand 
+        or (even more hellishly difficult) detect when a player has reloaded in to the game. 
+    And reset them at that point.
 
 
 [Optimization]
@@ -157,10 +167,10 @@ Property of "position"? ("on grid" -> 0.5s or 1s with 1 spacing?)
     Not really. Bounding box has a different behaviour (all directions)
 
 Tile box extends bounding box (done)
+Extract entity prototype stuff to back end(done)
+replace grid related stuff in Entity Prototype with Grid class (done)
 
-replace grid related stuff in Entity with Grid class
-Extract entity prototype stuff to back end
-
+don't move stuff on to Tile box points, but "on grid" tile points. (sort of done)
 
 -------------------------------------------------------------------
 ------------------ STAGE X + 1 - FULL BLUEPRINT -------------------
@@ -367,6 +377,8 @@ Tile editing
 
 Inner tiles keyed by position, cycle through with next(tile_map, previous)
 
+Tile select shift and ctrl tab select more horisontal/vertical from start(tab)
+
 Add tiles?
 Add tile boxes for tiles!
 Test tiles!
@@ -382,10 +394,12 @@ auto generated files are nicely ordered?
 ------------------------- Optimization ----------------------------
 -------------------------------------------------------------------
 
+
 Types class / type handling & checking (strict type vs no check (forced check for dao and frontend?)
 - "userdata" Test&Leave until inheritance & custom typecheck
 
-recalculate bounding box only on add/remove entity?? (and "move" bounding box with the rest of entities by vector)
+recalculate bounding box only on add/remove entity?? (and "move" bounding box with the rest of entities by vector
+    or cache the bounding box to blueprint string, and apply changes from there.)
 
 "Blueprint string" refers to blueprint in original orientation, with anchor at centre.
 
@@ -394,22 +408,33 @@ Known issue:
 Solution?:
 Profile first, to see where lag is happening.
 
-suggestions:
-matrix multiplication.
-restructure data
-Stop unnecesarry setting (where tables/pointers are already in place)
+Efficiency:
+    check out profiler http://luaprofiler.luaforge.net/index.html
+
+    suggestions:
+    large number of entities = use object centres instead of collision boxes??
+    cache collision and tile boxes for element prototype in lua
+        object.cached_object (returns a place to fill in "fall through" functions)
+    multithread movement calculations?
+    get first, and last element in entities list, and hope it reduces number of changes you have to make?
+    later sort to make sure it makes a difference?
+    restructure data for easier access to position
+    Stop unnecesarry setting (where tables/pointers are already in place)
+    matrix multiplication. (doesn't have native matrix)
 -------------------------------------------------------------------
 -------------------------- Code Quality ---------------------------
 -------------------------------------------------------------------
 
-replace "has no selection" in "blueprint edit actions" with one in store.
+change is_XXX to is_type (standardize)
+class mt.__call = assert(class.is_type, "was expecting " ...)
+Put them in function definitions??
 
 Stop mixing concepts array-table for blueprint entities (always array)
 On import from game - verify array position = element number! (otherwise, new array -> wrap -> correct)
     
 Reverse order of DAOs retrieval??
 
-Separation of concern between Object (inherited), and Class (way of inheritence)
+Separation of concern between Object (inherited), and Type/Class (way of inheritence)
 
 checkstyle/pmd?? auto fix??
 https://pmd.github.io/
@@ -794,12 +819,5 @@ Can we use "swap" to steal an object from the game to keep for editing display??
 Ideas: 
 -------------------------------------------------------------------
 
-Tile select shift and ctrl tab select more horisontal/vertical from start(tab)
-
-check out profiler http://luaprofiler.luaforge.net/index.html
-multithread movement calculations?
-Efficiency: get first, and last element in entities list, and hope it reduces number of changes you have to make?
-later sort to make sure it makes a difference?
-
-
-
+automatic test finding by python NOW
+Implement error handling at top level soon

@@ -39,3 +39,19 @@ I'm just going to knock it on the head.
 I need tests now, not when everything decides to fix itself.
 
 I guess I'll  try writing luaunit e2e tests :/
+
+
+Thu 9th November: Finally got bored of trying to do things the "proper" way, fixed something manually, and deployed the new version.
+I've included an overview in changelog. I've also split out a "notes" repo, for those paying attention. This is because I felt that versioning and issue tracking were in conflict in my opinion.
+
+A few hours later:
+Features are easy to pump out, when you don't care about breaking old features.
+
+But testing is so boring >.<
+
+I've incremented build to 0.2.0, because I've more or less rounded up the single element functionality. Now I want to make that possible in more cases, and add a LOT more polish
+
+Sunday 12th November: Big update today
+I managed to finish making all anchors stay on-grid (hopefully), there shouldn't be any more wonky blueprints!
+
+I've also started playing with error handling (makes it a lot easier to debug issues)
