@@ -37,7 +37,7 @@ Big pieces
 -------------------------------------------------------------------
 Blueprint editing!!!
 -------------------------------------------------------------------
-"E" locks player out of inventory effectively :/
+New Issues:
 
 
 -------------------------------------------------------------------
@@ -48,6 +48,7 @@ Tidy away blueprint handling from Api?
 
 -------------------------------------------------------------------
 Known Issues:
+"E" locks player out of inventory effectively :/
 
 "Rotate selection" text appears, when no selection.
 
@@ -108,72 +109,7 @@ Create more E2E tests
 Pay tech debt
 
 -------------------------------------------------------------------
----------------------- STAGE X - ALIGNMENT ------------------------
--------------------------------------------------------------------
-
-Research selection, and collision boxes
-Squeak through
-Origins... etc.
-
-LuaEntityPrototype.collision_box - check it out (and selection_box)
-- Collision_box = start everything on the grid correctly, and change "increment" from 0.5 to 1
--- Detection if element is "on grid" when you start moving it. If not, move to grid first.
-Collision box ceil should compensate for mods making them smaller, like "squeaak through"?
-USe selection box??
-"Origin" seems to be top left of entity?!?
-
-Collision box -> grid:
-    Odd side = -0.5
-    Even side = 0
-
-"origin" of item in middle of first block it's in???
-https://wiki.factorio.com/Types/AABB
-
-game -> entity_prototypes :: custom dictionary string → LuaEntityPrototype [Read-only]
-
-
-https://wiki.factorio.com/Prototype/Entity
-
-tile_width
-Type: Types/unsigned
-Default: calculated by the collision box width rounded up.
-Used to determine how the center of the entity should be positioned when building (unless the offgrid flag is specified). When the tile width is odd, the center will be in the center of the tile, when it is even, the center is on the tile transition.
-
-tile_height
-Type: Types/unsigned
-Default: calculated by the collision box height rounded up. 
-
-power poles = 0.7 gap (doable)
-
-
-ADD correctly
-
-Rotate individual oblong correctly.
-
-Change default move to 1, shift move to 5?
-
-Change anchor points to corners? rather than object centre?? Yeah, breaks grid.
-
-Change anchor points to corners now fixed
-
-Change anchor point to selection element fixed
-
-change anchor points to centre points... I can't see the effect :/
-    (try move everything off grid, then add something)
-Odd side fine, even needs to be moved.
-
-"on grid" separate concept to both entity, and bounding box? -> extract??
-Property of "position"? ("on grid" -> 0.5s or 1s with 1 spacing?)
-    Not really. Bounding box has a different behaviour (all directions)
-
-Tile box extends bounding box (done)
-Extract entity prototype stuff to back end(done)
-replace grid related stuff in Entity Prototype with Grid class (done)
-
-don't move stuff on to Tile box points, but "on grid" tile points. (sort of done)
-
--------------------------------------------------------------------
------------------- STAGE X + 1 - FULL BLUEPRINT -------------------
+------------------ STAGE X - FULL BLUEPRINT -------------------
 -------------------------------------------------------------------
 
 "Copy" = create carbon copy of whole blueprint, as item (ctrl-C, applies to selection - re-insert or whole BP)
