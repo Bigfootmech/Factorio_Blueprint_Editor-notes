@@ -1,0 +1,14 @@
+
+-------------------------------------------------------------------
+------------------- STAGE 2.4-2.6 - VERSATILITY -------------------
+-------------------------------------------------------------------
+
+Blueprint Creation:
+- N with nothing = start new "empty" blueprint. (can't game doesn't open screen for edit)
+- N with not editing & selection(hand) = start new blueprint with item
+- N with not editing, or hand = try to get selection
+
+TAKE ALL THE THINGS:
+- Placing real (non-blueprint) things places them in to blueprint!!
+- Shift-N with nothing in hand (while editing), will pick selection up in to blueprint!
+- Make sure Q-N, and Q-Shift+N work!!! (yep)

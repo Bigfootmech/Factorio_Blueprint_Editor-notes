@@ -27,6 +27,7 @@ Innards
     - Optimization
         
 Big pieces
+    - Origin marker, and tiling, for easier use
     - Tile editing?!?
     - Left Side GUI
     - Side GUI for blueprinting anything available to craft (but not necessarily crafted, or built yet)
@@ -51,6 +52,8 @@ Known Issues:
 "E" locks player out of inventory effectively :/
 
 "Rotate selection" text appears, when no selection.
+
+Add hand/mouseover vehicle = crash (should output message instead)
 
 [Stability]
 game crashes when you try to set anchor on blueprint with no entities, or tiles.
@@ -97,6 +100,9 @@ Stumpyofpain - Furthermore, blueprints disappear from the tool belt when I chang
 
 [Optimization]
 - anchor points lag on large blueprints (ie: JohnyDL's 199x199 solar array, 2 second lag)
+
+
+
 -------------------------------------------------------------------
 ----------------------- STAGE X - CEMENTING -----------------------
 -------------------------------------------------------------------
@@ -104,6 +110,7 @@ Stumpyofpain - Furthermore, blueprints disappear from the tool belt when I chang
 Fix bugs.
 Increase stability.
  - pcall error catching at API level (players don't immediately crash)
+Python auto trawls tests, and runs them (no declarative class for which tests to run)
 Create one E2E test for each "path"
 Create more E2E tests
 Pay tech debt
@@ -153,6 +160,7 @@ Mod options?:
 		-- To origin?
 		-- Directly over
 		-- Offset bottomleft by 1 tile?
+        -- extra keybind for "move to origin"?
         
 Mod Options: 
     Settable "move by X" and "Shift move by X" distances
@@ -203,6 +211,13 @@ Compatibility / better command recognition:
 Conditions for "move": Opened gui is type 5, and selection(hand) = none?
 "is_editing" check checks for blueprint editing AND Bpedit screen open (5), AND selection(hand) = none??
 
+
+open screen(editing_blueprint)
+Check if blueprint on cursor = one was editing? -> edit
+Search for old blueprint in inventory -> edit??, or ensure zapped on deselect (cache inventory location for easier equivalence lookup???, and check)
+If not -> create new, and hold in cursor
+If fails -> tell player "NO SPACE"
+
 Blueprint Destruction:
 - Q = clear selection (destroy small blueprints?)
 Auto-clear all empty, or one-entity blueprints from hand/in inventory (optional?) (-1 = don't delete, 0 = delete with 0, 1 = delete with only 1... etc?)
@@ -219,30 +234,8 @@ Prevent game rotating blueprints, and rotate contents myself.
 -------------------------- BP Versatility -------------------------
 -------------------------------------------------------------------
 
-WHY N ?!?
-N -> "New"/edit/iNventory
-
-Blueprint Creation:
-- N with nothing = start new "empty" blueprint.
-- N with not editing & selection(hand) = start new blueprint with item
-
 TAKE ALL THE THINGS:
-- Placing real (non-blueprint) things places them in to blueprint!!
-- Shift-N with nothing in hand (while editing), will pick selection up in to blueprint!
-- Make sure Q-N, and Q-Shift+N work!!! (not yet)
 - After switching to inventory (N from blueprint) next click auto-adds that.
-
-open screen(editing_blueprint)
-Check if blueprint on cursor = one was editing? -> edit
-Search for old blueprint in inventory -> edit??, or ensure zapped on deselect (cache inventory location for easier equivalence lookup???, and check)
-If not -> create new, and hold in cursor
-If fails -> tell player "NO SPACE"
-
-N -> if editing & screen not open = open screen(editing_blueprint)
-if editing & screen open = ??? ((cancel, and confirm?) - stop player receiving blueprint in hand they weren't editing.)          (add bp? too overloaded?) ("complete editing"? existing command.)  (start editing new bp? - still dangerous/overloaded) (do nothing? - not bad per se)
-if not editing, and BP in hand = start editing Bp
-if not editing, no BP in hand, and mouseover_selection = copy mouseover_selection, and start editing
-if not editing, no BP in hand, no mouseover_selection = start editing new (empty) BP?
 
 -------------------------------------------------------------------
 ------------------------ Multiple Selection -----------------------
@@ -321,6 +314,9 @@ Test tiles!
 -------------------------------------------------------------------
 ------------------------------ PR ---------------------------------
 -------------------------------------------------------------------
+
+WHY N ?!?
+N -> "New"/edit/iNventory. New editing session??
 
 Create more succinct "goals"? (than this file)
 
@@ -757,3 +753,5 @@ Ideas:
 
 automatic test finding by python NOW
 Implement error handling at top level soon
+
+Preserve rotation on add blueprint/entity/selection ? Interface vs persistent issue?? (should still be able to do with selection)
