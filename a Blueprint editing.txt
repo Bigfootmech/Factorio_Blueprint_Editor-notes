@@ -39,7 +39,7 @@ Big pieces
 Blueprint editing!!!
 -------------------------------------------------------------------
 New Issues:
-
+Preserve rotation on add blueprint/entity/selection ? Interface vs persistent issue?? (should still be able to do with selection)
 
 -------------------------------------------------------------------
 Tech Debt: 
@@ -700,8 +700,6 @@ What happens to blueprint element numbering, when an element is removed?!?!?
 
 What happens if we select book?
 
-Test: metatables erased on game save?
-
 Is there a way to hold down button (keep moving right) without using "ontick"? Is there even with ontick?
 Is there a way to detect if a button is currently being held down???
 
@@ -709,28 +707,18 @@ Can we force a different import / change import for testing in Lua?
 require () -> change it
 -> changed in test
 
-Does blank string label overwrite a name?
-
-What happens if you try to pipette clear on an empty hand?
-What type is an empty hand stack?
-What happens if you try to pipette clear a full hand with space in inventory?
-What happens if you try to pipette clear a full hand with no space in inventory?
-What happens if you try to pipette clear a full hand with space only in toolbar?
+Does blank string label overwrite a name? (not that important, we destroy bps regularly)
 
 What happens if player "clears" an element of a blueprint he's editing, in the game editor? (probably ignored? does it have to be confirmed?)
 
-What happens on commands if we don't have blueprint in hand??
-
 can we fuck up blueprints by changing tables? Are they all pointers? Do they deepcopy at the C-lua interface?
 
-Can you get rotation of entity/blueprint from hand?
-Can you get collision_box from blueprint/entity?
-If you can't get collision_box from blueprint, can you get entity, from blueprint, then get collision?
+Can you get rotation of entity/blueprint from hand? (doesn't look like it - double check)
 
 Compatibility?
 MOOVE
 if not editing, or not open -> don't do anything (or show up text?)
-See what dollies does. (moves both - warn player? - force no mouseover_selection, and warn?)
+See what dollies does. (moves both - warn player? - force no mouseover_selection, and warn?) (option in settings?)
 
 What happens if blueprint has elements, but no tiles, name, or icons? (icons = reset to empty?)
 
@@ -745,13 +733,11 @@ Can we modify that? tint/dotted?
 
 Do "entity numbers" affect draw order/visibility?
 
-Can we use "swap" to steal an object from the game to keep for editing display??
+Can we use "swap" to steal an object from the game to keep for editing display?? (probably not, but should check)
 -------------------------------------------------------------------
 -------------------------------------------------------------------
 Ideas: 
 -------------------------------------------------------------------
 
 automatic test finding by python NOW
-Implement error handling at top level soon
 
-Preserve rotation on add blueprint/entity/selection ? Interface vs persistent issue?? (should still be able to do with selection)
